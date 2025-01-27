@@ -31,9 +31,22 @@
     #sidebar.-translate-x-full {
       transform: translateX(-100%);
     }
+
+    /* Active Chat Video Placeholder */
+    #activeChatVideo {
+      background-color: #2d3748;
+      border-radius: 8px;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      font-size: 1.25rem;
+    }
   </style>
 </head>
-<body class="bg-gray-900 text-white">
+<body class="bg-gray-900 text-white flex">
 
   <!-- Sidebar -->
   <div id="sidebar" class="fixed top-0 left-0 w-64 h-full bg-black p-6 transform transition-transform duration-300 ease-in-out lg:transform-none lg:relative">
@@ -86,17 +99,19 @@
   </div>
 
   <!-- Main Content (Chat Window) -->
-  <div id="mainContent" class="ml-64 p-6">
+  <div id="mainContent" class="ml-64 p-6 w-full">
     <!-- Hamburger Menu for Sidebar -->
     <button id="hamburgerMenu" class="lg:hidden text-white" onclick="toggleSidebar()">☰</button>
 
     <div id="chatWindow" class="bg-gray-800 p-4 rounded-lg h-80 overflow-y-auto">
-      <!-- Messages will appear here -->
+      <!-- Active Chat Video Placeholder before chat starts -->
+      <div id="activeChatVideo">
+        <p>Active Chat Video Placeholder</p>
+      </div>
     </div>
   
     <!-- Message Input Area -->
     <div class="mt-4 flex items-center space-x-4">
-      <!-- Message Input Area with Send Button inside -->
       <div class="flex items-center w-full space-x-4">
         <textarea id="userMessage" class="w-full p-3 bg-gray-700 text-white rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-600" rows="2" placeholder="Type your message..."></textarea>
         
@@ -108,7 +123,6 @@
           </svg>
         </label>
   
-        <!-- Send Button -->
         <button id="sendMessage" class="bg-blue-600 text-white py-2 px-4 rounded-full hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-600">
           Send
         </button>
@@ -117,6 +131,8 @@
   </div>
   
   <script>
+    let firstMessageSent = false;
+
     // Get sidebar and hamburger button elements
     const sidebar = document.getElementById('sidebar');
     const hamburgerMenu = document.getElementById('hamburgerMenu');
@@ -132,6 +148,12 @@
       const message = document.getElementById("userMessage").value;
       const image = document.getElementById("imageUpload").files[0];  // Get the uploaded image if any
       if (message || image) {
+        if (!firstMessageSent) {
+          // Remove the active chat video once the first message is sent
+          document.getElementById("activeChatVideo").style.display = 'none';
+          firstMessageSent = true;
+        }
+
         // Display user message
         displayMessage(message, 'user', image);
   
@@ -145,13 +167,12 @@
         document.getElementById("imageUpload").value = '';  // Clear the image upload field
       }
     });
-  
+
     // Function to display messages with like/unlike/share buttons
     function displayMessage(message, sender, image) {
       const messageContainer = document.createElement("div");
       messageContainer.classList.add(sender === 'user' ? 'text-right' : 'text-left');
       
-      // Create message content (text + image if uploaded)
       let messageContent = `<p class="bg-${sender === 'user' ? 'blue' : 'green'}-600 inline-block p-3 rounded-lg text-white max-w-xs mt-2">${message}</p>`;
       if (image) {
         const imageURL = URL.createObjectURL(image);
@@ -160,7 +181,6 @@
       
       messageContainer.innerHTML = messageContent;
 
-      // Add like/unlike/share buttons for AI response
       if (sender === 'ai') {
         const buttonContainer = document.createElement("div");
         buttonContainer.classList.add("flex", "space-x-2", "mt-2");
