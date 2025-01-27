@@ -1,9 +1,14 @@
 from flask import Flask, request, jsonify
 import requests
+import openai
+import os
 
 app = Flask(__name__)
 
-# Replace with your actual API keys and endpoints
+# Set your OpenAI API key (make sure to keep it secure)
+openai.api_key = os.getenv("OPENAI_API_KEY")  # Set your API key as an environment variable
+
+# Replace with your actual Sun Motors API keys and endpoints
 SUN_MOTORS_API_URL = 'https://api.sunmotors.co.uk/marketcheck/vehicles'
 SUN_MOTORS_API_KEY = 'YOUR_API_KEY'
 
@@ -20,6 +25,20 @@ def fetch_products(query):
     else:
         return {'error': 'Failed to fetch data from Sun Motors API'}
 
+# Utility function to interact with OpenAI API
+def get_ai_response(query):
+    try:
+        # Make a request to OpenAI API
+        response = openai.Completion.create(
+            model="text-davinci-003",  # You can replace with a different model if needed
+            prompt=query,
+            max_tokens=150,  # Limit the response length
+            temperature=0.7  # Control the randomness of the response
+        )
+        return response.choices[0].text.strip()
+    except Exception as e:
+        return str(e)
+
 # Route to handle search requests
 @app.route('/api/search', methods=['POST'])
 def search():
@@ -31,13 +50,17 @@ def search():
 
     # Fetch results from Sun Motors API
     results = fetch_products(query)
-    
+
     if 'error' in results:
         return jsonify({'error': results['error']}), 500
+
+    # Get AI response based on the query
+    ai_response = get_ai_response(query)
     
-    # Return the data (for now, we'll just send a subset of the results)
+    # Return both the Sun Motors data and AI response
     return jsonify({
-        'results': results.get('vehicles', [])
+        'results': results.get('vehicles', []),
+        'ai_response': ai_response
     })
 
 if __name__ == "__main__":

@@ -41,7 +41,7 @@
       <p class="text-xl text-gray-300 mb-8">The fastest way from search to purchase.</p>
       <button id="tryButton" class="bg-blue-600 text-white py-3 px-8 rounded-full text-lg hover:bg-blue-500">
         Try it Yourself
-      </button>
+      </button>      
     </div>
     <!-- Animated Icons -->
     <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
@@ -195,9 +195,9 @@
     }
 
     // Event listener for buttons
-    document.getElementById('tryButton').addEventListener('click', () => {
-      fetchResults('try shopping assistant');
-    });
+    document.getElementById("tryButton").addEventListener("click", function() {
+  window.location.href = "chat.html"; // Navigate to the chat page
+});
 
     document.getElementById('buyGift').addEventListener('click', () => {
       fetchResults('buy gift');
@@ -210,6 +210,7 @@
     document.getElementById('startShopping').addEventListener('click', () => {
       fetchResults('start shopping');
     });
+
   </script>
   </footer>
 </body>

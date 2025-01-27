@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Chat - Perplexity Products</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes floating {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-15px);
+      }
+    }
+    .floating {
+      animation: floating 4s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+  <!-- Sidebar -->
+  <div id="sidebar" class="fixed top-0 left-0 w-64 h-full bg-black p-6 transform transition-transform duration-300 ease-in-out">
+    <div class="flex justify-between items-center">
+      <h2 class="text-2xl font-bold">AI Chat</h2>
+      <button id="closeSidebar" class="text-white">X</button>
+    </div>
+    <nav class="mt-6">
+      <ul>
+        <li><a href="#" class="text-gray-300 hover:text-white">Home</a></li>
+        <li><a href="#" class="text-gray-300 hover:text-white">Discover</a></li>
+        <li><a href="#" class="text-gray-300 hover:text-white">Spaces</a></li>
+        <li><a href="#" class="text-gray-300 hover:text-white">Library</a></li>
+      </ul>
+    </nav>
+    <div class="absolute bottom-16 left-6">
+      <button class="bg-blue-600 text-white py-2 px-4 rounded-full mb-2">Sign Up</button>
+      <button class="bg-blue-600 text-white py-2 px-4 rounded-full">Login</button>
+    </div>
+  </div>
+
+  <!-- Main Content (Chat Window) -->
+  <div id="mainContent" class="ml-64 p-6">
+    <div id="chatWindow" class="bg-gray-800 p-4 rounded-lg h-80 overflow-y-auto">
+      <!-- Messages will appear here -->
+    </div>
+    <div class="mt-4">
+      <textarea id="userMessage" class="w-full p-3 bg-gray-700 text-white rounded-md" rows="2" placeholder="Type your message..."></textarea>
+      <button id="sendMessage" class="bg-blue-600 text-white py-2 px-4 rounded-full mt-2">Send</button>
+    </div>
+  </div>
+
+  <script>
+    // Sidebar toggle
+    const closeSidebarButton = document.getElementById("closeSidebar");
+    closeSidebarButton.addEventListener("click", () => {
+      document.getElementById("sidebar").classList.toggle("transform");
+      document.getElementById("sidebar").classList.toggle("-translate-x-full");
+      document.getElementById("mainContent").classList.toggle("ml-0");
+    });
+
+    // Handle sending user messages and receiving AI responses
+    document.getElementById("sendMessage").addEventListener("click", () => {
+      const message = document.getElementById("userMessage").value;
+      if (message) {
+        // Display user message
+        displayMessage(message, 'user');
+
+        // Simulate AI response
+        setTimeout(() => {
+          const aiResponse = `AI Response to: ${message}`;  // Replace with actual AI logic
+          displayMessage(aiResponse, 'ai');
+        }, 1000);
+
+        document.getElementById("userMessage").value = '';  // Clear the input field
+      }
+    });
+
+    // Function to display messages
+    function displayMessage(message, sender) {
+      const messageContainer = document.createElement("div");
+      messageContainer.classList.add(sender === 'user' ? 'text-right' : 'text-left');
+      messageContainer.innerHTML = `<p class="bg-${sender === 'user' ? 'blue' : 'green'}-600 inline-block p-3 rounded-lg text-white max-w-xs mt-2">${message}</p>`;
+      document.getElementById("chatWindow").appendChild(messageContainer);
+      document.getElementById("chatWindow").scrollTop = document.getElementById("chatWindow").scrollHeight;
+    }
+  </script>
+
+</body>
+</html>
