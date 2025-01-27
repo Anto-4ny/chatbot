@@ -39,7 +39,7 @@
     <div class="container mx-auto px-6">
       <h2 class="text-5xl font-extrabold mb-6 text-white">Shop Without Limits</h2>
       <p class="text-xl text-gray-300 mb-8">The fastest way from search to purchase.</p>
-      <button class="bg-blue-600 text-white py-3 px-8 rounded-full text-lg hover:bg-blue-500">
+      <button id="tryButton" class="bg-blue-600 text-white py-3 px-8 rounded-full text-lg hover:bg-blue-500">
         Try it Yourself
       </button>
     </div>
@@ -55,30 +55,15 @@
   <section class="bg-gray-900 py-16">
     <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
       <!-- Feature Cards -->
-      <div class="p-6 bg-gray-800 rounded-lg text-center hover:scale-105 transform transition">
+      <div id="buyGift" class="p-6 bg-gray-800 rounded-lg text-center hover:scale-105 transform transition cursor-pointer">
         <h3 class="text-2xl font-bold mb-4">🔮 Buy a Gift</h3>
         <p class="text-gray-400">Find the perfect gift for someone picky.</p>
       </div>
-      <div class="p-6 bg-gray-800 rounded-lg text-center hover:scale-105 transform transition">
+      <div id="coffeeMaker" class="p-6 bg-gray-800 rounded-lg text-center hover:scale-105 transform transition cursor-pointer">
         <h3 class="text-2xl font-bold mb-4">📚 Coffee Maker</h3>
         <p class="text-gray-400">Find a coffee maker that’s just right for your kitchen.</p>
       </div>
-      <div class="p-6 bg-gray-800 rounded-lg text-center hover:scale-105 transform transition">
-        <h3 class="text-2xl font-bold mb-4">🕵️ Viral Product</h3>
-        <p class="text-gray-400">Check if a viral product is legit before buying.</p>
-      </div>
-      <div class="p-6 bg-gray-800 rounded-lg text-center hover:scale-105 transform transition">
-        <h3 class="text-2xl font-bold mb-4">🪑 Interior Design</h3>
-        <p class="text-gray-400">Get inspiration for upgrading your space.</p>
-      </div>
-      <div class="p-6 bg-gray-800 rounded-lg text-center hover:scale-105 transform transition">
-        <h3 class="text-2xl font-bold mb-4">🎧 Comfiest Headphones</h3>
-        <p class="text-gray-400">Find headphones perfect for your comfort.</p>
-      </div>
-      <div class="p-6 bg-gray-800 rounded-lg text-center hover:scale-105 transform transition">
-        <h3 class="text-2xl font-bold mb-4">🔌 Retro Tech</h3>
-        <p class="text-gray-400">Plug in retro tech with modern solutions.</p>
-      </div>
+      <!-- Add more buttons as needed -->
     </div>
   </section>
 
@@ -87,11 +72,12 @@
     <div class="container mx-auto px-6">
       <h2 class="text-4xl font-extrabold text-white mb-4">Ask Anything. Shop Everything.</h2>
       <p class="text-lg text-gray-200 mb-6">We'll find what you're looking for, fast.</p>
-      <button class="bg-white text-blue-900 py-3 px-8 rounded-full text-lg hover:bg-gray-300">
+      <button id="startShopping" class="bg-white text-blue-900 py-3 px-8 rounded-full text-lg hover:bg-gray-300">
         Start Shopping
       </button>
     </div>
   </section>
+  
   <!-- Footer -->
   <footer class="bg-gray-900 py-16">
     <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8 text-gray-300">
@@ -187,6 +173,44 @@
       <p>© Copyright 2024 Perplexity — Where Knowledge Begins</p>
     </div>
 
+     <script>
+    // Function to handle button clicks and trigger backend API
+    async function fetchResults(query) {
+      const response = await fetch('/api/search', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ query })
+      });
+
+      const data = await response.json();
+
+      // Display results or handle no results case
+      if (data.results && data.results.length > 0) {
+        alert(`Found ${data.results.length} products for your search.`);
+      } else {
+        alert('No results found.');
+      }
+    }
+
+    // Event listener for buttons
+    document.getElementById('tryButton').addEventListener('click', () => {
+      fetchResults('try shopping assistant');
+    });
+
+    document.getElementById('buyGift').addEventListener('click', () => {
+      fetchResults('buy gift');
+    });
+
+    document.getElementById('coffeeMaker').addEventListener('click', () => {
+      fetchResults('coffee maker');
+    });
+
+    document.getElementById('startShopping').addEventListener('click', () => {
+      fetchResults('start shopping');
+    });
+  </script>
   </footer>
 </body>
 </html>
