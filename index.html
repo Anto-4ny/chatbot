@@ -6,17 +6,16 @@
   <title>AI Shopping Assistant</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    /* Add keyframe animations */
     @keyframes floating {
       0%, 100% {
         transform: translateY(0);
       }
       50% {
-        transform: translateY(-10px);
+        transform: translateY(-15px);
       }
     }
     .floating {
-      animation: floating 3s infinite;
+      animation: floating 4s ease-in-out infinite;
     }
   </style>
 </head>
@@ -38,46 +37,157 @@
   <!-- Hero Section -->
   <section class="relative text-center py-20 bg-black">
     <div class="container mx-auto px-6">
-      <h2 class="text-5xl font-extrabold mb-4 text-white">Shop Without Limits</h2>
-      <p class="text-xl text-gray-300 mb-6">
-        The fastest way from search to purchase.
-      </p>
+      <h2 class="text-5xl font-extrabold mb-6 text-white">Shop Without Limits</h2>
+      <p class="text-xl text-gray-300 mb-8">The fastest way from search to purchase.</p>
       <button class="bg-blue-600 text-white py-3 px-8 rounded-full text-lg hover:bg-blue-500">
         Try it Yourself
       </button>
     </div>
-    <!-- Floating icons -->
+    <!-- Animated Icons -->
     <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-      <img src="https://via.placeholder.com/50" class="absolute left-10 top-20 floating" alt="Icon 1">
-      <img src="https://via.placeholder.com/60" class="absolute right-10 top-10 floating" alt="Icon 2">
-      <img src="https://via.placeholder.com/40" class="absolute left-1/3 bottom-10 floating" alt="Icon 3">
+      <img src="https://via.placeholder.com/50" class="absolute left-10 top-20 floating" alt="Gift Icon">
+      <img src="https://via.placeholder.com/60" class="absolute right-20 top-16 floating" alt="Coffee Icon">
+      <img src="https://via.placeholder.com/50" class="absolute left-1/3 bottom-20 floating" alt="Tech Icon">
     </div>
   </section>
 
   <!-- Features Section -->
   <section class="bg-gray-900 py-16">
     <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Feature Cards -->
       <div class="p-6 bg-gray-800 rounded-lg text-center hover:scale-105 transform transition">
         <h3 class="text-2xl font-bold mb-4">🔮 Buy a Gift</h3>
         <p class="text-gray-400">Find the perfect gift for someone picky.</p>
       </div>
       <div class="p-6 bg-gray-800 rounded-lg text-center hover:scale-105 transform transition">
         <h3 class="text-2xl font-bold mb-4">📚 Coffee Maker</h3>
-        <p class="text-gray-400">Find a coffee maker that’s just right.</p>
+        <p class="text-gray-400">Find a coffee maker that’s just right for your kitchen.</p>
       </div>
       <div class="p-6 bg-gray-800 rounded-lg text-center hover:scale-105 transform transition">
         <h3 class="text-2xl font-bold mb-4">🕵️ Viral Product</h3>
-        <p class="text-gray-400">Check if a viral product is legit.</p>
+        <p class="text-gray-400">Check if a viral product is legit before buying.</p>
+      </div>
+      <div class="p-6 bg-gray-800 rounded-lg text-center hover:scale-105 transform transition">
+        <h3 class="text-2xl font-bold mb-4">🪑 Interior Design</h3>
+        <p class="text-gray-400">Get inspiration for upgrading your space.</p>
+      </div>
+      <div class="p-6 bg-gray-800 rounded-lg text-center hover:scale-105 transform transition">
+        <h3 class="text-2xl font-bold mb-4">🎧 Comfiest Headphones</h3>
+        <p class="text-gray-400">Find headphones perfect for your comfort.</p>
+      </div>
+      <div class="p-6 bg-gray-800 rounded-lg text-center hover:scale-105 transform transition">
+        <h3 class="text-2xl font-bold mb-4">🔌 Retro Tech</h3>
+        <p class="text-gray-400">Plug in retro tech with modern solutions.</p>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="bg-gray-900 py-10">
-    <div class="container mx-auto px-6 text-center">
-      <p class="text-gray-400">© 2025 AI Shopping Assistant. All rights reserved.</p>
+  <!-- Call to Action -->
+  <section class="bg-blue-900 py-16 text-center">
+    <div class="container mx-auto px-6">
+      <h2 class="text-4xl font-extrabold text-white mb-4">Ask Anything. Shop Everything.</h2>
+      <p class="text-lg text-gray-200 mb-6">We'll find what you're looking for, fast.</p>
+      <button class="bg-white text-blue-900 py-3 px-8 rounded-full text-lg hover:bg-gray-300">
+        Start Shopping
+      </button>
     </div>
-  </footer>
+  </section>
+  <!-- Footer -->
+  <footer class="bg-gray-900 py-16">
+    <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8 text-gray-300">
+      
+      <!-- Buy with Pro -->
+      <div>
+        <h3 class="text-xl font-bold mb-4">Buy with Pro</h3>
+        <p class="mb-4">
+          Brings research and checkout together. Plus, you'll get free shipping on us.
+        </p>
+        <a href="#" class="text-blue-400 hover:text-blue-500 underline">Try Perplexity Pro</a>
+      </div>
 
+      <!-- Shop What You See -->
+      <div>
+        <h3 class="text-xl font-bold mb-4">Snap-to-Shop</h3>
+        <p class="mb-4">Shop what you see. Try it out!</p>
+      </div>
+
+      <!-- Merchant Program -->
+      <div>
+        <h3 class="text-xl font-bold mb-4">Perplexity Merchant Program</h3>
+        <p class="mb-4">
+          Transform how you showcase your products. Join merchants who trust us to keep their product information accurate and engaging.
+        </p>
+        <a href="#" class="text-blue-400 hover:text-blue-500 underline">Start selling with us</a>
+      </div>
+
+      <!-- Company Info -->
+      <div>
+        <h3 class="text-xl font-bold mb-4">Company</h3>
+        <ul class="space-y-2">
+          <li><a href="#" class="text-gray-400 hover:text-white">Careers</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Brand Guidelines</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Press Inquiries</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Terms & Conditions</a></li>
+        </ul>
+      </div>
+
+      <!-- Product -->
+      <div>
+        <h3 class="text-xl font-bold mb-4">Product</h3>
+        <ul class="space-y-2">
+          <li><a href="#" class="text-gray-400 hover:text-white">Desktop App</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">iPhone App</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Android App</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Search Companion</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Default Search</a></li>
+        </ul>
+      </div>
+
+      <!-- Resources -->
+      <div>
+        <h3 class="text-xl font-bold mb-4">Resources</h3>
+        <ul class="space-y-2">
+          <li><a href="#" class="text-gray-400 hover:text-white">Getting Started</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">General FAQs</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Technical FAQs</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Give Feedback</a></li>
+        </ul>
+      </div>
+
+      <!-- Labs -->
+      <div>
+        <h3 class="text-xl font-bold mb-4">Labs</h3>
+        <ul class="space-y-2">
+          <li><a href="#" class="text-gray-400 hover:text-white">PPLX-API Overview</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Online LLMs</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Playground</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">API Documentation</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">API FAQs</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">API Terms of Service</a></li>
+        </ul>
+      </div>
+
+    </div>
+    
+    <!-- Social Links -->
+    <div class="container mx-auto px-6 mt-10 text-center">
+      <div class="flex justify-center space-x-6">
+        <a href="#" class="text-gray-400 hover:text-white">Twitter</a>
+        <a href="#" class="text-gray-400 hover:text-white">Podcast</a>
+        <a href="#" class="text-gray-400 hover:text-white">Discord</a>
+        <a href="#" class="text-gray-400 hover:text-white">Threads</a>
+        <a href="#" class="text-gray-400 hover:text-white">LinkedIn</a>
+        <a href="#" class="text-gray-400 hover:text-white">YouTube</a>
+      </div>
+    </div>
+
+    <!-- Copyright Section -->
+    <div class="container mx-auto px-6 mt-6 text-center text-gray-400">
+      <p>© Copyright 2024 Perplexity — Where Knowledge Begins</p>
+    </div>
+
+  </footer>
 </body>
 </html>
+
