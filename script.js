@@ -88,3 +88,38 @@ function displayMessage(message, sender, image) {
   document.getElementById("chatWindow").scrollTop =
     document.getElementById("chatWindow").scrollHeight;
 }
+
+// Sample chat data to simulate loading chat history
+const chatData = {
+    "Chat 1": [
+      { sender: "user", message: "I want to buy a car." },
+      { sender: "ai", message: "Sure! What type of car are you looking for?" }
+    ],
+    "Chat 2": [
+      { sender: "user", message: "Tell me about financing options." },
+      { sender: "ai", message: "We offer financing with 0% APR for the first year." }
+    ],
+    "Chat 3": [
+      { sender: "user", message: "What about car insurance options?" },
+      { sender: "ai", message: "We provide comprehensive insurance plans for all vehicles." }
+    ]
+  };
+  
+  // Function to load chat history
+  function loadChat(chatTitle) {
+    const chatWindow = document.getElementById("chatWindow");
+  
+    // Clear the chat window
+    chatWindow.innerHTML = "";
+  
+    // Load messages from the selected chat
+    if (chatData[chatTitle]) {
+      chatData[chatTitle].forEach(({ sender, message }) => {
+        displayMessage(message, sender);
+      });
+    } else {
+      // If no chat data found
+      chatWindow.innerHTML = `<div class="text-center text-gray-400">No messages found for ${chatTitle}</div>`;
+    }
+  }
+  

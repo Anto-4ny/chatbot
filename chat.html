@@ -58,6 +58,38 @@
     </div>
   </header>
 
+  <div id="sidebar" class="bg-gray-900 text-white w-64 h-full p-4 space-y-4 fixed overflow-y-auto">
+    <!-- Chat History Section -->
+    <div id="chatHistory" class="space-y-2">
+      <h2 class="text-xl font-bold mb-2">Chat History</h2>
+      <ul class="space-y-2">
+        <!-- Sample chat history items -->
+        <li>
+          <button class="w-full text-left bg-gray-800 py-2 px-3 rounded-lg hover:bg-gray-700" onclick="loadChat('Chat 1')">
+            Chat 1: Buying a Car
+          </button>
+        </li>
+        <li>
+          <button class="w-full text-left bg-gray-800 py-2 px-3 rounded-lg hover:bg-gray-700" onclick="loadChat('Chat 2')">
+            Chat 2: Financing Options
+          </button>
+        </li>
+        <li>
+          <button class="w-full text-left bg-gray-800 py-2 px-3 rounded-lg hover:bg-gray-700" onclick="loadChat('Chat 3')">
+            Chat 3: Car Insurance
+          </button>
+        </li>
+      </ul>
+    </div>
+  
+    <!-- Sign Up and Login Section -->
+    <div class="absolute bottom-16 left-6 w-full">
+      <button class="bg-blue-600 text-white py-2 px-4 rounded-full mb-2 w-full">Sign Up</button>
+      <button class="bg-blue-600 text-white py-2 px-4 rounded-full w-full">Login</button>
+    </div>
+  </div>
+  
+
   <!-- Main Content (Chat Window) -->
   <div id="mainContent" class="p-6 w-full">
     <!-- Chat Window -->
