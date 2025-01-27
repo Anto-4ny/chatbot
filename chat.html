@@ -67,32 +67,39 @@
     <!-- Hamburger Menu for Sidebar -->
     <button id="hamburgerMenu" class="lg:hidden text-white" onclick="toggleSidebar()">☰</button>
 
-    <div id="chatWindow" class="bg-gray-800 p-4 rounded-lg h-80 overflow-y-auto">
-      <!-- Active Chat Image Placeholder before chat starts -->
-      <div id="activeChatImage">
-        <p>Active Chat Image Placeholder</p>
-      </div>
-    </div>
-
-    <!-- Message Input Area -->
-    <div class="mt-4 flex items-center space-x-4">
-      <div class="flex items-center w-full space-x-4">
-        <textarea id="userMessage" class="w-full p-3 bg-gray-700 text-white rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-600" rows="2" placeholder="Type your message..."></textarea>
-
-        <!-- Image Upload Button -->
-        <label for="imageUpload" class="cursor-pointer text-white bg-gray-700 p-2 rounded-lg hover:bg-gray-600">
-          <input type="file" id="imageUpload" class="hidden" />
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z" />
-          </svg>
-        </label>
-
-        <button id="sendMessage" class="bg-blue-600 text-white py-2 px-4 rounded-full hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-600">
-          Send
-        </button>
-      </div>
-    </div>
+    <!-- Chat Window -->
+<div id="chatWindow" class="bg-gray-800 p-4 rounded-lg h-80 overflow-y-auto max-w-3xl mx-auto">
+  <!-- Active Chat Image Placeholder before chat starts -->
+  <div id="activeChatImage" class="flex justify-center items-center h-full">
+    <p>Active Chat Image Placeholder</p>
   </div>
+</div>
+
+<!-- Message Input Area -->
+<div class="mt-4 flex flex-col space-y-4 max-w-3xl mx-auto">
+  <div class="flex items-center space-x-4">
+    <!-- Message Input -->
+    <textarea id="userMessage" 
+              class="flex-grow p-3 bg-gray-700 text-white rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-600" 
+              rows="2" 
+              placeholder="Type your message..."></textarea>
+
+    <!-- Image Upload Button -->
+    <label for="imageUpload" 
+           class="cursor-pointer text-white bg-gray-700 p-2 rounded-lg hover:bg-gray-600 flex-shrink-0">
+      <input type="file" id="imageUpload" class="hidden" />
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z" />
+      </svg>
+    </label>
+
+    <!-- Send Button -->
+    <button id="sendMessage" 
+            class="bg-blue-600 text-white py-2 px-4 rounded-full hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-600 flex-shrink-0">
+      Send
+    </button>
+  </div>
+</div>
 
   <script>
     let firstMessageSent = false;
