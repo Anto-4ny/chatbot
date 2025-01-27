@@ -49,16 +49,11 @@
 </head>
 <body class="bg-gray-900 text-white flex">
 
-    <div id="sidebar" class="fixed top-0 left-0 w-64 h-full bg-black p-6 transform transition-transform duration-300 ease-in-out lg:transform-none lg:relative">
-        <div class="flex justify-between items-center">
-          <h2 class="text-2xl font-bold text-white">AI Chat</h2>
-          <button id="closeSidebar" class="text-white lg:hidden">X</button>
-        </div>
-      </div>
-      
-      <!-- Hamburger Menu -->
-      <button id="hamburgerMenu" class="lg:hidden text-white">☰</button>
-      
+  <div id="sidebar" class="fixed top-0 left-0 w-64 h-full bg-black p-6 transform transition-transform duration-300 ease-in-out lg:transform-none lg:relative">
+    <div class="flex justify-between items-center">
+      <h2 class="text-2xl font-bold text-white">AI Chat</h2>
+      <button id="closeSidebar" class="text-white lg:hidden">X</button>
+    </div>
     <nav class="mt-6">
       <ul class="space-y-4">
         <li>
@@ -95,7 +90,6 @@
         </li>
       </ul>
     </nav>
-  
     <div class="absolute bottom-16 left-6">
       <button class="bg-blue-600 text-white py-2 px-4 rounded-full mb-2 w-full">Sign Up</button>
       <button class="bg-blue-600 text-white py-2 px-4 rounded-full w-full">Login</button>
@@ -113,12 +107,12 @@
         <p>Active Chat Video Placeholder</p>
       </div>
     </div>
-  
+
     <!-- Message Input Area -->
     <div class="mt-4 flex items-center space-x-4">
       <div class="flex items-center w-full space-x-4">
         <textarea id="userMessage" class="w-full p-3 bg-gray-700 text-white rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-600" rows="2" placeholder="Type your message..."></textarea>
-        
+
         <!-- Image Upload Button -->
         <label for="imageUpload" class="cursor-pointer text-white bg-gray-700 p-2 rounded-lg hover:bg-gray-600">
           <input type="file" id="imageUpload" class="hidden" />
@@ -126,33 +120,33 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z" />
           </svg>
         </label>
-  
+
         <button id="sendMessage" class="bg-blue-600 text-white py-2 px-4 rounded-full hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-600">
           Send
         </button>
       </div>
     </div>
   </div>
-  
+
   <script>
     let firstMessageSent = false;
 
-   // Get sidebar and hamburger button elements
-const sidebar = document.getElementById('sidebar');
-const hamburgerMenu = document.getElementById('hamburgerMenu');
-const closeSidebar = document.getElementById('closeSidebar');
+    // Get sidebar and hamburger button elements
+    const sidebar = document.getElementById('sidebar');
+    const hamburgerMenu = document.getElementById('hamburgerMenu');
+    const closeSidebar = document.getElementById('closeSidebar');
 
-// Function to toggle sidebar visibility
-function toggleSidebar() {
-  sidebar.classList.toggle('-translate-x-full');  // Slide in the sidebar from the left
-  sidebar.classList.toggle('translate-x-0');  // Slide out the sidebar
-}
+    // Function to toggle sidebar visibility
+    function toggleSidebar() {
+      sidebar.classList.toggle('-translate-x-full');  // Slide in the sidebar from the left
+      sidebar.classList.toggle('translate-x-0');  // Slide out the sidebar
+    }
 
-// Add event listener for hamburger button
-hamburgerMenu.addEventListener('click', toggleSidebar);
+    // Add event listener for hamburger button
+    hamburgerMenu.addEventListener('click', toggleSidebar);
 
-// Add event listener for close button
-closeSidebar.addEventListener('click', toggleSidebar);
+    // Add event listener for close button
+    closeSidebar.addEventListener('click', toggleSidebar);
 
     // Handle sending user messages and receiving AI responses
     document.getElementById("sendMessage").addEventListener("click", () => {
@@ -167,13 +161,13 @@ closeSidebar.addEventListener('click', toggleSidebar);
 
         // Display user message
         displayMessage(message, 'user', image);
-  
+
         // Simulate AI response
         setTimeout(() => {
           const aiResponse = `AI Response to: ${message}`;  // Replace with actual AI logic
           displayMessage(aiResponse, 'ai');
         }, 1000);
-  
+
         document.getElementById("userMessage").value = '';  // Clear the input field
         document.getElementById("imageUpload").value = '';  // Clear the image upload field
       }
@@ -184,41 +178,38 @@ closeSidebar.addEventListener('click', toggleSidebar);
       const messageContainer = document.createElement("div");
       messageContainer.classList.add(sender === 'user' ? 'text-right' : 'text-left');
       
-      let messageContent = `<p class="bg-${sender === 'user' ? 'blue' : 'green'}-600 inline-block p-3 rounded-lg text-white max-w-xs mt-2">${message}</p>`;
-      if (image) {
-        const imageURL = URL.createObjectURL(image);
-        messageContent += `<img src="${imageURL}" class="mt-2 max-w-xs" />`;  // Display the uploaded image
-      }
+      let messageContent = `<div class="bg-gray-700 text-white p-3 mb-2 rounded-lg inline-block max-w-xs">${message}</div>`;
       
+      if (image) {
+        const imageUrl = URL.createObjectURL(image);
+        messageContent = `<div class="bg-gray-700 text-white p-3 mb-2 rounded-lg inline-block max-w-xs"><img src="${imageUrl}" alt="User uploaded image" class="w-full h-auto rounded-lg" /></div>`;
+      }
+
       messageContainer.innerHTML = messageContent;
 
-      if (sender === 'ai') {
-        const buttonContainer = document.createElement("div");
-        buttonContainer.classList.add("flex", "space-x-2", "mt-2");
+      // Add Like/Unlike buttons and Share button to the message
+      const likeButton = document.createElement("button");
+      likeButton.classList.add('bg-blue-600', 'text-white', 'py-1', 'px-3', 'rounded-full', 'hover:bg-blue-500', 'focus:outline-none', 'mr-2');
+      likeButton.innerText = "Like";
 
-        const likeButton = document.createElement("button");
-        likeButton.classList.add("bg-green-500", "px-4", "py-1", "text-white", "rounded-lg");
-        likeButton.innerText = "Like";
+      const unlikeButton = document.createElement("button");
+      unlikeButton.classList.add('bg-red-600', 'text-white', 'py-1', 'px-3', 'rounded-full', 'hover:bg-red-500', 'focus:outline-none');
+      unlikeButton.innerText = "Unlike";
 
-        const unlikeButton = document.createElement("button");
-        unlikeButton.classList.add("bg-red-500", "px-4", "py-1", "text-white", "rounded-lg");
-        unlikeButton.innerText = "Unlike";
+      const shareButton = document.createElement("button");
+      shareButton.classList.add('bg-green-600', 'text-white', 'py-1', 'px-3', 'rounded-full', 'hover:bg-green-500', 'focus:outline-none');
+      shareButton.innerText = "Share";
 
-        const shareButton = document.createElement("button");
-        shareButton.classList.add("bg-blue-500", "px-4", "py-1", "text-white", "rounded-lg");
-        shareButton.innerText = "Share";
+      messageContainer.appendChild(likeButton);
+      messageContainer.appendChild(unlikeButton);
+      messageContainer.appendChild(shareButton);
 
-        buttonContainer.appendChild(likeButton);
-        buttonContainer.appendChild(unlikeButton);
-        buttonContainer.appendChild(shareButton);
-
-        messageContainer.appendChild(buttonContainer);
-      }
-
+      // Append the message to chat window
       document.getElementById("chatWindow").appendChild(messageContainer);
+
+      // Auto-scroll to the latest message
       document.getElementById("chatWindow").scrollTop = document.getElementById("chatWindow").scrollHeight;
     }
-  </script>  
-
+  </script>
 </body>
 </html>
