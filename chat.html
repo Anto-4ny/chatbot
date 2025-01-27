@@ -22,25 +22,64 @@
 <body class="bg-gray-900 text-white">
 
   <!-- Sidebar -->
-  <div id="sidebar" class="fixed top-0 left-0 w-64 h-full bg-black p-6 transform transition-transform duration-300 ease-in-out">
+<div id="sidebar" class="fixed top-0 left-0 w-64 h-full bg-black p-6 transform transition-transform duration-300 ease-in-out lg:transform-none lg:relative">
     <div class="flex justify-between items-center">
-      <h2 class="text-2xl font-bold">AI Chat</h2>
-      <button id="closeSidebar" class="text-white">X</button>
+      <h2 class="text-2xl font-bold text-white">AI Chat</h2>
+      <button id="closeSidebar" class="text-white lg:hidden">X</button>
     </div>
+  
     <nav class="mt-6">
-      <ul>
-        <li><a href="#" class="text-gray-300 hover:text-white">Home</a></li>
-        <li><a href="#" class="text-gray-300 hover:text-white">Discover</a></li>
-        <li><a href="#" class="text-gray-300 hover:text-white">Spaces</a></li>
-        <li><a href="#" class="text-gray-300 hover:text-white">Library</a></li>
+      <ul class="space-y-4">
+        <li>
+          <a href="#" class="flex items-center space-x-3 text-gray-300 hover:text-white p-3 rounded-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18M3 18h18" />
+            </svg>
+            <span class="text-xl">Home</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="flex items-center space-x-3 text-gray-300 hover:text-white p-3 rounded-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12M6 12h12" />
+            </svg>
+            <span class="text-xl">Discover</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="flex items-center space-x-3 text-gray-300 hover:text-white p-3 rounded-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z" />
+            </svg>
+            <span class="text-xl">Spaces</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="flex items-center space-x-3 text-gray-300 hover:text-white p-3 rounded-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v14M5 12h14" />
+            </svg>
+            <span class="text-xl">Library</span>
+          </a>
+        </li>
       </ul>
     </nav>
+  
     <div class="absolute bottom-16 left-6">
-      <button class="bg-blue-600 text-white py-2 px-4 rounded-full mb-2">Sign Up</button>
-      <button class="bg-blue-600 text-white py-2 px-4 rounded-full">Login</button>
+      <button class="bg-blue-600 text-white py-2 px-4 rounded-full mb-2 w-full">Sign Up</button>
+      <button class="bg-blue-600 text-white py-2 px-4 rounded-full w-full">Login</button>
     </div>
   </div>
-
+  
+  <!-- Hamburger Menu Button -->
+  <div class="lg:hidden absolute top-5 left-5">
+    <button id="hamburgerMenu" class="text-white">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </div>
+  
   <!-- Main Content (Chat Window) -->
   <div id="mainContent" class="ml-64 p-6">
     <div id="chatWindow" class="bg-gray-800 p-4 rounded-lg h-80 overflow-y-auto">
@@ -53,31 +92,56 @@
   </div>
 
   <script>
-    // Sidebar toggle
+    // Get sidebar and hamburger button elements
+    const sidebar = document.getElementById('sidebar');
+    const closeSidebar = document.getElementById('closeSidebar');
+    const hamburgerMenu = document.getElementById('hamburgerMenu');
+    const mainContent = document.getElementById('mainContent');
+  
+    // Function to toggle sidebar visibility
+    function toggleSidebar() {
+      sidebar.classList.toggle('transform');  // Toggle sidebar visibility using transform
+      sidebar.classList.toggle('translate-x-0');  // Show sidebar when toggled
+    }
+  
+    // Close sidebar when clicking the close button
+    closeSidebar.addEventListener('click', toggleSidebar);
+  
+    // Open/close sidebar on hamburger menu click
+    hamburgerMenu.addEventListener('click', toggleSidebar);
+  
+    // Optional: close sidebar if user clicks anywhere on the main content area
+    mainContent.addEventListener('click', () => {
+      if (sidebar.classList.contains('translate-x-0')) {
+        toggleSidebar();
+      }
+    });
+  
+    // Sidebar toggle logic
     const closeSidebarButton = document.getElementById("closeSidebar");
     closeSidebarButton.addEventListener("click", () => {
       document.getElementById("sidebar").classList.toggle("transform");
       document.getElementById("sidebar").classList.toggle("-translate-x-full");
       document.getElementById("mainContent").classList.toggle("ml-0");
     });
-
+  
     // Handle sending user messages and receiving AI responses
     document.getElementById("sendMessage").addEventListener("click", () => {
       const message = document.getElementById("userMessage").value;
       if (message) {
         // Display user message
         displayMessage(message, 'user');
-
+  
         // Simulate AI response
         setTimeout(() => {
           const aiResponse = `AI Response to: ${message}`;  // Replace with actual AI logic
           displayMessage(aiResponse, 'ai');
         }, 1000);
-
+  
         document.getElementById("userMessage").value = '';  // Clear the input field
       }
     });
-
+  
     // Function to display messages
     function displayMessage(message, sender) {
       const messageContainer = document.createElement("div");
@@ -86,7 +150,7 @@
       document.getElementById("chatWindow").appendChild(messageContainer);
       document.getElementById("chatWindow").scrollTop = document.getElementById("chatWindow").scrollHeight;
     }
-  </script>
+  </script>  
 
 </body>
 </html>
