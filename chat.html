@@ -16,7 +16,6 @@
     .floating {
       animation: floating 4s ease-in-out infinite;
     }
-    
   </style>
 </head>
 <body class="bg-gray-900 text-white">
@@ -25,43 +24,14 @@
   <div id="sidebar" class="fixed top-0 left-0 w-64 h-full bg-black p-6 transform transition-transform duration-300 ease-in-out lg:transform-none lg:relative">
     <div class="flex justify-between items-center">
       <h2 class="text-2xl font-bold text-white">AI Chat</h2>
-      <button id="closeSidebar" class="text-white lg:hidden">X</button>
     </div>
   
     <nav class="mt-6">
       <ul class="space-y-4">
-        <li>
-          <a href="#" class="flex items-center space-x-3 text-gray-300 hover:text-white p-3 rounded-lg">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18M3 18h18" />
-            </svg>
-            <span class="text-xl">Home</span>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="flex items-center space-x-3 text-gray-300 hover:text-white p-3 rounded-lg">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12M6 12h12" />
-            </svg>
-            <span class="text-xl">Discover</span>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="flex items-center space-x-3 text-gray-300 hover:text-white p-3 rounded-lg">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z" />
-            </svg>
-            <span class="text-xl">Spaces</span>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="flex items-center space-x-3 text-gray-300 hover:text-white p-3 rounded-lg">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v14M5 12h14" />
-            </svg>
-            <span class="text-xl">Library</span>
-          </a>
-        </li>
+        <li><a href="#" class="flex items-center space-x-3 text-gray-300 hover:text-white p-3 rounded-lg">Home</a></li>
+        <li><a href="#" class="flex items-center space-x-3 text-gray-300 hover:text-white p-3 rounded-lg">Discover</a></li>
+        <li><a href="#" class="flex items-center space-x-3 text-gray-300 hover:text-white p-3 rounded-lg">Spaces</a></li>
+        <li><a href="#" class="flex items-center space-x-3 text-gray-300 hover:text-white p-3 rounded-lg">Library</a></li>
       </ul>
     </nav>
   
@@ -70,61 +40,55 @@
       <button class="bg-blue-600 text-white py-2 px-4 rounded-full w-full">Login</button>
     </div>
   </div>
-  
-  <!-- Hamburger Menu Button -->
-  <div class="lg:hidden absolute top-5 left-5">
-    <button id="hamburgerMenu" class="text-white">
-      <i class="fas fa-bars"></i> <!-- You can use a font icon or an image for the hamburger menu -->
-    </button>
-  </div>
-  
+
   <!-- Main Content (Chat Window) -->
   <div id="mainContent" class="ml-64 p-6">
     <div id="chatWindow" class="bg-gray-800 p-4 rounded-lg h-80 overflow-y-auto">
       <!-- Messages will appear here -->
     </div>
-    <div class="mt-4">
+
+    <!-- Message Input Area -->
+    <div class="mt-4 flex items-center space-x-2">
       <textarea id="userMessage" class="w-full p-3 bg-gray-700 text-white rounded-md" rows="2" placeholder="Type your message..."></textarea>
-      <button id="sendMessage" class="bg-blue-600 text-white py-2 px-4 rounded-full mt-2">Send</button>
+      
+      <!-- Image Upload -->
+      <input type="file" id="imageUpload" class="text-white bg-gray-700 p-2 rounded-md" />
+      
+      <!-- Send Button Inside the Input Area -->
+      <button id="sendMessage" class="bg-blue-600 text-white py-2 px-4 rounded-full">Send</button>
     </div>
   </div>
-  
+
   <script>
     // Get sidebar and hamburger button elements
     const sidebar = document.getElementById('sidebar');
-    const closeSidebar = document.getElementById('closeSidebar');
     const hamburgerMenu = document.getElementById('hamburgerMenu');
     const mainContent = document.getElementById('mainContent');
   
-    // Function to toggle sidebar visibility
+    // Function to toggle sidebar visibility (removed sidebar close)
     function toggleSidebar() {
       sidebar.classList.toggle('-translate-x-full');  // Slide in the sidebar from the left
       sidebar.classList.toggle('translate-x-0');  // Slide out the sidebar
     }
-  
-    // Close sidebar when clicking the close button
-    closeSidebar.addEventListener('click', () => {
-      sidebar.classList.add('-translate-x-full');
-      sidebar.classList.remove('translate-x-0');
-    });
-  
-    // Open/close sidebar on hamburger menu click
+
+    // Open/close sidebar on hamburger menu click (sidebar remains open now)
     hamburgerMenu.addEventListener('click', toggleSidebar);
-  
-    // Close sidebar if user clicks anywhere on the main content area
-    mainContent.addEventListener('click', () => {
-      if (!sidebar.classList.contains('-translate-x-full')) {
-        sidebar.classList.add('-translate-x-full');
-        sidebar.classList.remove('translate-x-0');
-      }
-    });
-  
+
+    // Close sidebar if user clicks anywhere on the main content area (no longer required)
+    //mainContent.addEventListener('click', () => {
+    //  if (!sidebar.classList.contains('-translate-x-full')) {
+    //    sidebar.classList.add('-translate-x-full');
+    //    sidebar.classList.remove('translate-x-0');
+    //  }
+    //});
+
     // Handle sending user messages and receiving AI responses
     document.getElementById("sendMessage").addEventListener("click", () => {
       const message = document.getElementById("userMessage").value;
-      if (message) {
+      const image = document.getElementById("imageUpload").files[0];  // Get the uploaded image if any
+      if (message || image) {
         // Display user message
-        displayMessage(message, 'user');
+        displayMessage(message, 'user', image);
   
         // Simulate AI response
         setTimeout(() => {
@@ -133,14 +97,48 @@
         }, 1000);
   
         document.getElementById("userMessage").value = '';  // Clear the input field
+        document.getElementById("imageUpload").value = '';  // Clear the image upload field
       }
     });
   
-    // Function to display messages
-    function displayMessage(message, sender) {
+    // Function to display messages with like/unlike/share buttons
+    function displayMessage(message, sender, image) {
       const messageContainer = document.createElement("div");
       messageContainer.classList.add(sender === 'user' ? 'text-right' : 'text-left');
-      messageContainer.innerHTML = `<p class="bg-${sender === 'user' ? 'blue' : 'green'}-600 inline-block p-3 rounded-lg text-white max-w-xs mt-2">${message}</p>`;
+      
+      // Create message content (text + image if uploaded)
+      let messageContent = `<p class="bg-${sender === 'user' ? 'blue' : 'green'}-600 inline-block p-3 rounded-lg text-white max-w-xs mt-2">${message}</p>`;
+      if (image) {
+        const imageURL = URL.createObjectURL(image);
+        messageContent += `<img src="${imageURL}" class="mt-2 max-w-xs" />`;  // Display the uploaded image
+      }
+      
+      messageContainer.innerHTML = messageContent;
+
+      // Add like/unlike/share buttons for AI response
+      if (sender === 'ai') {
+        const buttonContainer = document.createElement("div");
+        buttonContainer.classList.add("flex", "space-x-2", "mt-2");
+
+        const likeButton = document.createElement("button");
+        likeButton.classList.add("bg-green-500", "px-4", "py-1", "text-white", "rounded-lg");
+        likeButton.innerText = "Like";
+
+        const unlikeButton = document.createElement("button");
+        unlikeButton.classList.add("bg-red-500", "px-4", "py-1", "text-white", "rounded-lg");
+        unlikeButton.innerText = "Unlike";
+
+        const shareButton = document.createElement("button");
+        shareButton.classList.add("bg-blue-500", "px-4", "py-1", "text-white", "rounded-lg");
+        shareButton.innerText = "Share";
+
+        buttonContainer.appendChild(likeButton);
+        buttonContainer.appendChild(unlikeButton);
+        buttonContainer.appendChild(shareButton);
+
+        messageContainer.appendChild(buttonContainer);
+      }
+
       document.getElementById("chatWindow").appendChild(messageContainer);
       document.getElementById("chatWindow").scrollTop = document.getElementById("chatWindow").scrollHeight;
     }
