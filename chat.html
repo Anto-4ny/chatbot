@@ -17,8 +17,8 @@
     .floating {
       animation: floating 4s ease-in-out infinite;
     }
-    /* Active Chat Video Placeholder */
-    #activeChatVideo {
+    /* Active Chat Image Placeholder */
+    #activeChatImage {
       background-color: #2d3748;
       border-radius: 8px;
       width: 100%;
@@ -34,32 +34,32 @@
 
 <body class="bg-black text-white font-sans">
 
-    <!-- Header -->
-    <header class="bg-black border-b border-gray-700">
-      <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-        <h1 class="text-2xl font-bold">AI Shopping Assistant</h1>
-        <nav class="space-x-6">
-          <a href="#" class="text-gray-300 hover:text-white">Home</a>
-          <a href="#" class="text-gray-300 hover:text-white">Features</a>
-          <a href="#" class="text-gray-300 hover:text-white">About</a>
-          <a href="#" class="text-gray-300 hover:text-white">Contact</a>
-        </nav>
-        <div class="absolute bottom-16 left-6">
-            <button class="bg-blue-600 text-white py-2 px-4 rounded-full mb-2 w-full">Sign Up</button>
-            <button class="bg-blue-600 text-white py-2 px-4 rounded-full w-full">Login</button>
-          </div>
+  <!-- Header -->
+  <header class="bg-black border-b border-gray-700">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold">AI Shopping Assistant</h1>
+      <nav class="space-x-6">
+        <a href="#" class="text-gray-300 hover:text-white">Home</a>
+        <a href="#" class="text-gray-300 hover:text-white">Features</a>
+        <a href="#" class="text-gray-300 hover:text-white">About</a>
+        <a href="#" class="text-gray-300 hover:text-white">Contact</a>
+      </nav>
+      <div class="absolute bottom-16 left-6">
+        <button class="bg-blue-600 text-white py-2 px-4 rounded-full mb-2 w-full">Sign Up</button>
+        <button class="bg-blue-600 text-white py-2 px-4 rounded-full w-full">Login</button>
       </div>
-    </header>
-  
+    </div>
+  </header>
+
   <!-- Main Content (Chat Window) -->
   <div id="mainContent" class="ml-64 p-6 w-full">
     <!-- Hamburger Menu for Sidebar -->
     <button id="hamburgerMenu" class="lg:hidden text-white" onclick="toggleSidebar()">☰</button>
 
     <div id="chatWindow" class="bg-gray-800 p-4 rounded-lg h-80 overflow-y-auto">
-      <!-- Active Chat Video Placeholder before chat starts -->
-      <div id="activeChatVideo">
-        <p>Active Chat Video Placeholder</p>
+      <!-- Active Chat Image Placeholder before chat starts -->
+      <div id="activeChatImage">
+        <p>Active Chat Image Placeholder</p>
       </div>
     </div>
 
@@ -109,8 +109,8 @@
       const image = document.getElementById("imageUpload").files[0];  // Get the uploaded image if any
       if (message || image) {
         if (!firstMessageSent) {
-          // Remove the active chat video once the first message is sent
-          document.getElementById("activeChatVideo").style.display = 'none';
+          // Remove the active chat image once the first message is sent
+          document.getElementById("activeChatImage").style.display = 'none';
           firstMessageSent = true;
         }
 
@@ -145,15 +145,15 @@
       // Add Like/Unlike buttons and Share button to the message
       const likeButton = document.createElement("button");
       likeButton.classList.add('bg-blue-600', 'text-white', 'py-1', 'px-3', 'rounded-full', 'hover:bg-blue-500', 'focus:outline-none', 'mr-2');
-      likeButton.innerText = "Like";
+      likeButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12l5 5L19 7" /></svg>';  // Like icon
 
       const unlikeButton = document.createElement("button");
       unlikeButton.classList.add('bg-red-600', 'text-white', 'py-1', 'px-3', 'rounded-full', 'hover:bg-red-500', 'focus:outline-none');
-      unlikeButton.innerText = "Unlike";
+      unlikeButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12l-5 5-5-5" /></svg>';  // Unlike icon
 
       const shareButton = document.createElement("button");
       shareButton.classList.add('bg-green-600', 'text-white', 'py-1', 'px-3', 'rounded-full', 'hover:bg-green-500', 'focus:outline-none');
-      shareButton.innerText = "Share";
+      shareButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12l-5 5m0 0l-5-5m5 5V3" /></svg>';  // Share icon
 
       messageContainer.appendChild(likeButton);
       messageContainer.appendChild(unlikeButton);
