@@ -17,6 +17,7 @@
     .floating {
       animation: floating 4s ease-in-out infinite;
     }
+
     /* Active Chat Image Placeholder */
     #activeChatImage {
       background-color: #2d3748;
@@ -32,19 +33,18 @@
 
     /* Prevent Horizontal Scrolling */
     body {
-      overflow-x: hidden;  /* Prevent horizontal scrolling */
+      overflow-x: hidden;
     }
 
     /* Ensure the main content area does not overflow */
     #mainContent {
       width: 100%;
-      overflow-x: hidden; /* Prevent horizontal scroll on main content */
+      overflow-x: hidden;
     }
   </style>
 </head>
 
 <body class="bg-black text-white font-sans">
-
   <!-- Header -->
   <header class="bg-black border-b border-gray-700">
     <div class="container mx-auto px-6 py-4 flex justify-between items-center">
@@ -55,134 +55,46 @@
         <a href="#" class="text-gray-300 hover:text-white">About</a>
         <a href="#" class="text-gray-300 hover:text-white">Contact</a>
       </nav>
-      <div class="absolute bottom-16 left-6">
-        <button class="bg-blue-600 text-white py-2 px-4 rounded-full mb-2 w-full">Sign Up</button>
-        <button class="bg-blue-600 text-white py-2 px-4 rounded-full w-full">Login</button>
-      </div>
     </div>
   </header>
 
   <!-- Main Content (Chat Window) -->
-  <div id="mainContent" class="ml-64 p-6 w-full">
-    <!-- Hamburger Menu for Sidebar -->
-    <button id="hamburgerMenu" class="lg:hidden text-white" onclick="toggleSidebar()">☰</button>
-
+  <div id="mainContent" class="p-6 w-full">
     <!-- Chat Window -->
-<div id="chatWindow" class="bg-gray-800 p-4 rounded-lg h-80 overflow-y-auto max-w-3xl mx-auto">
-  <!-- Active Chat Image Placeholder before chat starts -->
-  <div id="activeChatImage" class="flex justify-center items-center h-full">
-    <p>Active Chat Image Placeholder</p>
+    <div id="chatWindow" class="bg-gray-800 p-4 rounded-lg h-80 overflow-y-auto max-w-3xl mx-auto">
+      <!-- Active Chat Image Placeholder before chat starts -->
+      <div id="activeChatImage" class="flex justify-center items-center h-full">
+        <p>Active Chat Image Placeholder</p>
+      </div>
+    </div>
+
+    <!-- Message Input Area -->
+    <div class="mt-4 flex flex-col space-y-4 max-w-3xl mx-auto">
+      <div class="flex items-center space-x-4">
+        <!-- Message Input -->
+        <textarea id="userMessage" 
+                  class="flex-grow p-3 bg-gray-700 text-white rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-600" 
+                  rows="2" 
+                  placeholder="Type your message..."></textarea>
+
+        <!-- Image Upload Button -->
+        <label for="imageUpload" 
+               class="cursor-pointer text-white bg-gray-700 p-2 rounded-lg hover:bg-gray-600 flex-shrink-0">
+          <input type="file" id="imageUpload" class="hidden" />
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z" />
+          </svg>
+        </label>
+
+        <!-- Send Button -->
+        <button id="sendMessage" 
+                class="bg-blue-600 text-white py-2 px-4 rounded-full hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-600 flex-shrink-0">
+          Send
+        </button>
+      </div>
+    </div>
   </div>
-</div>
 
-<!-- Message Input Area -->
-<div class="mt-4 flex flex-col space-y-4 max-w-3xl mx-auto">
-  <div class="flex items-center space-x-4">
-    <!-- Message Input -->
-    <textarea id="userMessage" 
-              class="flex-grow p-3 bg-gray-700 text-white rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-600" 
-              rows="2" 
-              placeholder="Type your message..."></textarea>
-
-    <!-- Image Upload Button -->
-    <label for="imageUpload" 
-           class="cursor-pointer text-white bg-gray-700 p-2 rounded-lg hover:bg-gray-600 flex-shrink-0">
-      <input type="file" id="imageUpload" class="hidden" />
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z" />
-      </svg>
-    </label>
-
-    <!-- Send Button -->
-    <button id="sendMessage" 
-            class="bg-blue-600 text-white py-2 px-4 rounded-full hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-600 flex-shrink-0">
-      Send
-    </button>
-  </div>
-</div>
-
-  <script>
-    let firstMessageSent = false;
-
-    // Get sidebar and hamburger button elements
-    const sidebar = document.getElementById('sidebar');
-    const hamburgerMenu = document.getElementById('hamburgerMenu');
-    const closeSidebar = document.getElementById('closeSidebar');
-
-    // Function to toggle sidebar visibility
-    function toggleSidebar() {
-      sidebar.classList.toggle('-translate-x-full');  // Slide in the sidebar from the left
-      sidebar.classList.toggle('translate-x-0');  // Slide out the sidebar
-    }
-
-    // Add event listener for hamburger button
-    hamburgerMenu.addEventListener('click', toggleSidebar);
-
-    // Add event listener for close button
-    closeSidebar.addEventListener('click', toggleSidebar);
-
-    // Handle sending user messages and receiving AI responses
-    document.getElementById("sendMessage").addEventListener("click", () => {
-      const message = document.getElementById("userMessage").value;
-      const image = document.getElementById("imageUpload").files[0];  // Get the uploaded image if any
-      if (message || image) {
-        if (!firstMessageSent) {
-          // Remove the active chat image once the first message is sent
-          document.getElementById("activeChatImage").style.display = 'none';
-          firstMessageSent = true;
-        }
-
-        // Display user message
-        displayMessage(message, 'user', image);
-
-        // Simulate AI response
-        setTimeout(() => {
-          const aiResponse = `AI Response to: ${message}`;  // Replace with actual AI logic
-          displayMessage(aiResponse, 'ai');
-        }, 1000);
-
-        document.getElementById("userMessage").value = '';  // Clear the input field
-        document.getElementById("imageUpload").value = '';  // Clear the image upload field
-      }
-    });
-
-    // Function to display messages with like/unlike/share buttons
-    function displayMessage(message, sender, image) {
-      const messageContainer = document.createElement("div");
-      messageContainer.classList.add(sender === 'user' ? 'text-right' : 'text-left');
-      
-      let messageContent = `<div class="bg-gray-700 text-white p-3 mb-2 rounded-lg inline-block max-w-xs">${message}</div>`;
-      
-      if (image) {
-        const imageUrl = URL.createObjectURL(image);
-        messageContent = `<div class="bg-gray-700 text-white p-3 mb-2 rounded-lg inline-block max-w-xs"><img src="${imageUrl}" alt="User uploaded image" class="w-full h-auto rounded-lg" /></div>`;
-      }
-
-      messageContainer.innerHTML = messageContent;
-
-      // Add Like/Unlike buttons and Share button to the message
-      const likeButton = document.createElement("button");
-      likeButton.classList.add('bg-blue-600', 'text-white', 'py-1', 'px-3', 'rounded-full', 'hover:bg-blue-500', 'focus:outline-none', 'mr-2');
-      likeButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12l5 5L19 7" /></svg>';  // Like icon
-
-      const unlikeButton = document.createElement("button");
-      unlikeButton.classList.add('bg-red-600', 'text-white', 'py-1', 'px-3', 'rounded-full', 'hover:bg-red-500', 'focus:outline-none');
-      unlikeButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12l-5 5-5-5" /></svg>';  // Unlike icon
-
-      const shareButton = document.createElement("button");
-      shareButton.classList.add('bg-green-600', 'text-white', 'py-1', 'px-3', 'rounded-full', 'hover:bg-green-500', 'focus:outline-none');
-      shareButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12l-5 5m0 0l-5-5m5 5V3" /></svg>';  // Share icon
-
-      messageContainer.appendChild(likeButton);
-      messageContainer.appendChild(unlikeButton);
-      messageContainer.appendChild(shareButton);
-
-      // Append the message to chat window
-      document.getElementById("chatWindow").appendChild(messageContainer);
-
-      // Auto-scroll to the latest message
-      document.getElementById("chatWindow").scrollTop = document.getElementById("chatWindow").scrollHeight;
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
