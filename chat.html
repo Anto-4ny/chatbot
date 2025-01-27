@@ -17,6 +17,22 @@
     .floating {
       animation: floating 4s ease-in-out infinite;
     }
+    /* Sidebar initially hidden off-screen */
+#sidebar {
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Sidebar visible on the left */
+#sidebar.translate-x-0 {
+  transform: translateX(0);
+}
+
+/* Sidebar hidden off-screen (closed) */
+#sidebar.-translate-x-full {
+  transform: translateX(-100%);
+}
+
   </style>
 </head>
 <body class="bg-gray-900 text-white">
@@ -73,11 +89,10 @@
   
   <!-- Hamburger Menu Button -->
   <div class="lg:hidden absolute top-5 left-5">
-    <button id="hamburgerMenu" class="text-white">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-      </svg>
-    </button>
+   <!-- Hamburger Icon -->
+<button id="hamburgerMenu" class="absolute right-6 top-6 text-white">
+    <i class="fas fa-bars"></i> <!-- You can use a font icon or an image for the hamburger menu -->
+  </button>  
   </div>
   
   <!-- Main Content (Chat Window) -->
@@ -90,7 +105,6 @@
       <button id="sendMessage" class="bg-blue-600 text-white py-2 px-4 rounded-full mt-2">Send</button>
     </div>
   </div>
-
   <script>
     // Get sidebar and hamburger button elements
     const sidebar = document.getElementById('sidebar');
@@ -100,29 +114,25 @@
   
     // Function to toggle sidebar visibility
     function toggleSidebar() {
-      sidebar.classList.toggle('transform');  // Toggle sidebar visibility using transform
-      sidebar.classList.toggle('translate-x-0');  // Show sidebar when toggled
+      sidebar.classList.toggle('-translate-x-full');  // Slide in the sidebar from the left
+      sidebar.classList.toggle('translate-x-0');  // Slide out the sidebar
     }
   
     // Close sidebar when clicking the close button
-    closeSidebar.addEventListener('click', toggleSidebar);
+    closeSidebar.addEventListener('click', () => {
+      sidebar.classList.add('-translate-x-full');
+      sidebar.classList.remove('translate-x-0');
+    });
   
     // Open/close sidebar on hamburger menu click
     hamburgerMenu.addEventListener('click', toggleSidebar);
   
-    // Optional: close sidebar if user clicks anywhere on the main content area
+    // Close sidebar if user clicks anywhere on the main content area
     mainContent.addEventListener('click', () => {
-      if (sidebar.classList.contains('translate-x-0')) {
-        toggleSidebar();
+      if (!sidebar.classList.contains('-translate-x-full')) {
+        sidebar.classList.add('-translate-x-full');
+        sidebar.classList.remove('translate-x-0');
       }
-    });
-  
-    // Sidebar toggle logic
-    const closeSidebarButton = document.getElementById("closeSidebar");
-    closeSidebarButton.addEventListener("click", () => {
-      document.getElementById("sidebar").classList.toggle("transform");
-      document.getElementById("sidebar").classList.toggle("-translate-x-full");
-      document.getElementById("mainContent").classList.toggle("ml-0");
     });
   
     // Handle sending user messages and receiving AI responses
