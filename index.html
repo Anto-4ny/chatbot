@@ -70,10 +70,10 @@
       transform: translate(0, 0);
     }
     50% {
-      transform: translate(-20px, 20px); /* Slight movement up and left */
+      transform: translate(-70px, 70px); /* Slight movement up and left */
     }
     100% {
-      transform: translate(20px, -20px); /* Slight movement down and right */
+      transform: translate(80px, -80px); /* Slight movement down and right */
     }
   }
 
@@ -85,8 +85,8 @@
 
   /* Apply blur effect to soften the icons */
   .floating-diagonal {
-    opacity: 0.7;
-    filter: blur(4px);
+    opacity: 0.2;
+    filter: blur(0px);
   }
 </style>
 
@@ -237,7 +237,7 @@
 
     // Event listener for buttons
     document.getElementById("tryButton").addEventListener("click", function() {
-  window.location.href = "chat.html"; // Navigate to the chat page
+  window.location.href = "chat"; // Navigate to the chat page
 });
 
     document.getElementById('buyGift').addEventListener('click', () => {
