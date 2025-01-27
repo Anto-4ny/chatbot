@@ -1,3 +1,69 @@
+// Initialize Firebase
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+} from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+
+// Your Firebase configuration
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID",
+};
+
+// Initialize Firebase App and Firestore
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// Modal Elements
+const authModal = document.getElementById("authModal");
+const modalTitle = document.getElementById("modalTitle");
+const closeModal = document.getElementById("closeModal");
+const authForm = document.getElementById("authForm");
+const authSubmit = document.getElementById("authSubmit");
+const signUpButton = document.querySelector(".sign-up-button");
+const loginButton = document.querySelector(".login-button");
+
+// Open Modal
+function openModal(isSignUp) {
+  modalTitle.textContent = isSignUp ? "Sign Up" : "Login";
+  authSubmit.textContent = isSignUp ? "Sign Up" : "Login";
+  authModal.classList.remove("hidden");
+}
+
+// Close Modal
+function closeModalHandler() {
+  authModal.classList.add("hidden");
+}
+
+// Handle Form Submission
+authForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  try {
+    // Store user info in Firestore
+    await addDoc(collection(db, "users"), { email, password });
+    alert("Success! Account created or logged in.");
+    closeModalHandler();
+  } catch (error) {
+    console.error("Error saving user to Firestore:", error);
+    alert("Error occurred. Please try again.");
+  }
+});
+
+// Event Listeners
+signUpButton.addEventListener("click", () => openModal(true));
+loginButton.addEventListener("click", () => openModal(false));
+closeModal.addEventListener("click", closeModalHandler);
+
 let firstMessageSent = false;
 
 document.getElementById("sendMessage").addEventListener("click", () => {
