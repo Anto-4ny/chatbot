@@ -48,13 +48,16 @@
 </head>
 <body class="bg-gray-900 text-white flex">
 
-  <!-- Sidebar -->
-  <div id="sidebar" class="fixed top-0 left-0 w-64 h-full bg-black p-6 transform transition-transform duration-300 ease-in-out lg:transform-none lg:relative">
-    <div class="flex justify-between items-center">
-      <h2 class="text-2xl font-bold text-white">AI Chat</h2>
-      <button id="closeSidebar" class="text-white lg:hidden" onclick="toggleSidebar()">X</button>
-    </div>
-  
+    <div id="sidebar" class="fixed top-0 left-0 w-64 h-full bg-black p-6 transform transition-transform duration-300 ease-in-out lg:transform-none lg:relative">
+        <div class="flex justify-between items-center">
+          <h2 class="text-2xl font-bold text-white">AI Chat</h2>
+          <button id="closeSidebar" class="text-white lg:hidden">X</button>
+        </div>
+      </div>
+      
+      <!-- Hamburger Menu -->
+      <button id="hamburgerMenu" class="lg:hidden text-white">☰</button>
+      
     <nav class="mt-6">
       <ul class="space-y-4">
         <li>
@@ -133,15 +136,22 @@
   <script>
     let firstMessageSent = false;
 
-    // Get sidebar and hamburger button elements
-    const sidebar = document.getElementById('sidebar');
-    const hamburgerMenu = document.getElementById('hamburgerMenu');
-  
-    // Function to toggle sidebar visibility
-    function toggleSidebar() {
-      sidebar.classList.toggle('-translate-x-full');  // Slide in the sidebar from the left
-      sidebar.classList.toggle('translate-x-0');  // Slide out the sidebar
-    }
+   // Get sidebar and hamburger button elements
+const sidebar = document.getElementById('sidebar');
+const hamburgerMenu = document.getElementById('hamburgerMenu');
+const closeSidebar = document.getElementById('closeSidebar');
+
+// Function to toggle sidebar visibility
+function toggleSidebar() {
+  sidebar.classList.toggle('-translate-x-full');  // Slide in the sidebar from the left
+  sidebar.classList.toggle('translate-x-0');  // Slide out the sidebar
+}
+
+// Add event listener for hamburger button
+hamburgerMenu.addEventListener('click', toggleSidebar);
+
+// Add event listener for close button
+closeSidebar.addEventListener('click', toggleSidebar);
 
     // Handle sending user messages and receiving AI responses
     document.getElementById("sendMessage").addEventListener("click", () => {
